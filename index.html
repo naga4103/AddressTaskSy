@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root" class="main-container">
+      <img
+        src="./shipyaari.png"
+        alt="Shipyaari Logo"
+        width="150px"
+        class="image-container"
+      />
+      <form id="form-submit" class="form-submit" onsubmit="handleSubmit(event)">
+        <div class="address-container">
+          <label for="message" class="address-label">Address:</label>
+          <textarea id="address" name="address" rows="4" cols="40"></textarea>
+        </div>
+        <div class="button-container">
+          <button id="submit" type="submit">Submit</button>
+        </div>
+        <!-- <div class="landmark-container">
+          <label id="landmark" class="landmark-label">Landmark:</label>
+          <select id="landmark" name="landmark">
+            <option value="volvo">Volvo</option>
+            <option value="audi">Audi</option>
+          </select>
+        </div> -->
+      </form>
+    </div>
+    <!-- <script src="index.js"></script> -->
+    <script>
+      const addressEl = document.getElementById("address");
+      console.log(addressEl);
+
+      //   function handle() {
+      //     console.log("Clicked");
+      //   }
+
+      //   function onSubmit() {
+      //     console.log("On Submit");
+      //   }
+      async function handleSubmit(event) {
+        event.preventDefault();
+        console.log("Hiii");
+        console.log("Text Area Value is", addressEl.value);
+        const url = "http://65.2.176.43:8004/api/v1/landmark/nearByLandmark";
+        const data = addressEl.value;
+        const token = "6481876edafb412cf0294413";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: token,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ address: data }),
+          mode: "no-cors",
+        });
+        console.log("Response is", response);
+      }
+    </script>
+  </body>
+</html>
